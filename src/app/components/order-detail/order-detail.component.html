@@ -1,1 +1,34 @@
-<p>order-detail works!</p>
+<div>
+<hr>
+    <dl>
+        <dt>Order Number:</dt>
+        <dd>{{orderDetails.orderNumber}}</dd>
+        <dt >Deliver Address: </dt>
+        <dd class="overflow-auto">{{orderDetails.deliverAddress}}</dd>
+        <dt>Billing Address:</dt>
+        <dd class="overflow-auto">{{orderDetails.billingAddress}}</dd>
+        <dt>Order Amount:</dt>
+        <dd>{{orderDetails.orderAmount}}€</dd>
+        <dt>Items:</dt>
+        <dd *ngFor="let item of orderDetails.items">
+            <p><b>{{item.name}}</b> - {{item.priceEUR}}€</p>
+            <ul>
+                <li>Ram: {{item.ramGB}} Gb</li>
+                <li>Graphic Card: {{item.graphicCard}}</li>
+                <li>Processor: {{item.processor}}</li>
+                <li>Storage: {{item.storageGB}} Gb</li>
+                <li>ScreenWidth: {{item.screenWidth}}cm</li>
+                <li>Weight: {{item.weightKg}} Kg</li>
+            </ul>
+        </dd>
+        <dt>Company Name:</dt>
+        <dd class="overflow-auto">{{orderDetails.companyName}}</dd>
+    </dl>
+    <div>
+        <button id="editButton">Edit</button>
+        <button id="deleteButton" (click)="deleteOrder()">Delete</button>
+    </div>
+    <hr>
+</div>
+
+

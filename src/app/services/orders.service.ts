@@ -15,7 +15,10 @@ interface orderTestResponse{
 export class OrdersService {
 fakeOrder:orderDTO[];
 
+
+
 // Change in order to test error and sucess messages
+testOrderNumber:number =2;
 okTestResponse:boolean=true;
 testErrorMessage:string="Test Error Message";
 
@@ -65,17 +68,19 @@ return orderAmount;
 }
 
 // get testing orders (Just for testing)
-  getTestingOrders():orderDTO[]{
-      return this.fakeOrder
+ async  getTestingOrders():Promise<orderDTO[]>{
+      return  this.fakeOrder
   }
 
 // create testing orders (Just for testing), modifying the okResponse (boolean) you can test different results based on server response
-  createTestingOrderSuccess(order:orderDTO):orderTestResponse{
+  async createTestingOrderSuccess(order:orderDTO):Promise<orderTestResponse>{
 
 
 
     if(this.okTestResponse){
-      order.orderNumber= this.fakeOrder.length;
+      this.testOrderNumber++
+      order.orderNumber= this.testOrderNumber;
+
       order.orderAmount=this.calculateAmount(order);
       this.fakeOrder.push(order)
       return  {okResponse:this.okTestResponse,order:order}
@@ -85,5 +90,11 @@ return orderAmount;
     }
 
    
+  }
+
+
+  async deleteTestingOrder(order:orderDTO): Promise<boolean>{
+    this.fakeOrder.splice(this.fakeOrder.indexOf(order),1);
+    return this.okTestResponse;
   }
 }

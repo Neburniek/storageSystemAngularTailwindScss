@@ -1,0 +1,24 @@
+dl{
+    display: grid;
+    text-align: center;
+    max-height:90vh;
+    overflow: auto;
+      dt{
+        font-weight: 800;
+    }
+}
+button{
+  padding:5px;
+  border-radius: 5px;
+  color:white;
+  font-weight: 800;
+  margin: 10px;
+}
+#editButton{
+  background-color:blue;
+
+}
+#deleteButton{
+background-color: red;
+float: right;
+}

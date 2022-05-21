@@ -9,15 +9,15 @@
     <app-order-creator *ngIf="showCreate" (closeMenu)="showCreateToggle()"></app-order-creator>
     <table class="w-5/6 m-auto border border-black text-center table-fixed ">
         <tr>
-            <th class="bg-red-400 overflow-scroll" *ngFor="let header of headers">{{header}}</th>
+            <th class="bg-red-400 overflow-auto" *ngFor="let header of headers">{{header}}</th>
         </tr>
     
     
-    <tr class="border border-black text-center border-dashed" *ngFor="let orderItem of orderList">
-        <td class="overflow-scroll">{{orderItem.orderNumber}}</td>
-        <td class="overflow-scroll" >{{orderItem.deliverAddress}}</td>
-        <td  class="overflow-scroll">{{orderItem.billingAddress}}</td>
-        <td  class="overflow-scroll" >{{orderItem.orderAmount}}</td>
+    <tr class="border border-black text-center border-dashed cursor-pointer hover:bg-sky-700" *ngFor="let orderItem of orderList" (click)="showOrderDetail(orderItem)">
+        <td class="overflow-auto">{{orderItem.orderNumber}}</td>
+        <td class="overflow-auto" >{{orderItem.deliverAddress}}</td>
+        <td  class="overflow-auto">{{orderItem.billingAddress}}</td>
+        <td  class="overflow-auto" >{{orderItem.orderAmount}}</td>
         <td >
                         <p 
                         *ngIf="orderItem.items.length <= 1;else variousBlock"
@@ -26,11 +26,16 @@
                             <p>Multiple Items</p>
                         </ng-template>
         </td>
-        <td class="overflow-scroll">{{orderItem.companyName}}</td>
+        <td class="overflow-auto">{{orderItem.companyName}}</td>
     </tr >
     
     </table>
 </div>
 
+<aside *ngIf="showDetails">
+    <app-order-detail (closeMe)="showDetailsToggle()" [orderDetails]="orderDetails"></app-order-detail>
+
+    <button (click)="showDetailsToggle()">Close</button>
+</aside>
 
 

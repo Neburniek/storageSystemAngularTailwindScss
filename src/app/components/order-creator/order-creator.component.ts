@@ -66,16 +66,21 @@ async createOrder(){
    
     new laptopDTO("Lenovo Thinkbook 15", 559, 12, "AMD", "i2", 519, 1900, 2 )]
 
-    let orderResponse= this.orderService.createTestingOrderSuccess(this.newOrder);
-    if (orderResponse.okResponse && orderResponse.order){
-      this.submissionSuccesful=true;
-      this.newOrder=orderResponse.order;
-      // this.createOrderForm.reset()
-    }else{
-      this.submissionSuccesful=false;
-     
-      this.errorMessage=orderResponse.errorMessage || "Something went Wrong"
+    try{
+      let orderResponse= await this.orderService.createTestingOrderSuccess(this.newOrder);
+      if (orderResponse.okResponse && orderResponse.order){
+        this.submissionSuccesful=true;
+        this.newOrder=orderResponse.order;
+        // this.createOrderForm.reset()
+      }else{
+        this.submissionSuccesful=false;
+       
+        this.errorMessage=orderResponse.errorMessage || "Something went Wrong"
+      }
+    }catch(error:any){
+      console.log(error)
     }
+   
     
   }
 
