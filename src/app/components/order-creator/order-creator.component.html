@@ -45,15 +45,11 @@
             </div>
         </div>
     
-        <button type="submit"> 
-            <p *ngIf="!editMode; else editButton">Submit</p>
-            <ng-template #editButton> Edit</ng-template>
-        
-        </button>
+        <button type="submit">Submit</button>
     </form>
 
     <ng-template #summary>
-        <app-order-summary [order]="newOrder" (closeMenu)="reset($event)"></app-order-summary>
+        <app-order-summary [order]="newOrder"></app-order-summary>
     </ng-template>
 
  

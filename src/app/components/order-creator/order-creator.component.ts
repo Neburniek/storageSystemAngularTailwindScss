@@ -86,14 +86,25 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
   // made async function in order to facilitate the transition to a database, test mode does not request async
 
   async editOrder(){
-    
-  this.checkFormValidity()
+    this.isValidForm=false;
+    if(this.createOrderForm.invalid ){
+     return
+    }
+
+    this.isValidForm=true;
+
+    this.newOrder= this.createOrderForm.value
+
     try{
 
       if(this.orderDetails && confirm("Are you sure do you want to modify order " + this.orderDetails.orderNumber + "?")){
         let orderResponse= await this.orderService.editOrder(this.newOrder, this.orderDetails);
 
-       this.alertResponseHandling(orderResponse)
+        if(orderResponse.okResponse){
+          alert("Order Succesfully modified")
+        }else{
+          alert(orderResponse.errorMessage ||  "something went wrong")
+        }
       }else{
         alert("Something went wrong")
       }
@@ -108,31 +119,17 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
 
   }
 
-  checkFormValidity(){
-    this.isValidForm=false;
-    if(this.createOrderForm.invalid ){
-     return
-    }
-
-    this.isValidForm=true;
-
-    this.newOrder= this.createOrderForm.value
-  }
-
-  alertResponseHandling(orderResponse:any){
-    if(orderResponse.okResponse){
-      alert("Order Succesfully modified")
-    }else{
-      alert(orderResponse.errorMessage ||  "something went wrong")
-    }
-  }
-
-
   // made async function in order to facilitate the transition to a database, test mode does not request async
 async createNewOrder(){
 
 
-   this.checkFormValidity()
+    this.isValidForm=false;
+    if(this.createOrderForm.invalid){
+     return
+    }
+
+    this.isValidForm=true;
+    this.newOrder= this.createOrderForm.value;
     this.newOrder.items= [ new laptopDTO("Lenovo Yoga Slim 7", 700, 12, "Nvidia", "i3", 519, 1900, 2 ), new laptopDTO("Lenovo IdeaPad 5", 559, 12, "AMD", "i2", 519, 1900, 2 ), 
    
 
@@ -140,26 +137,20 @@ async createNewOrder(){
 
     try{
       let orderResponse= await this.orderService.createTestingOrderSuccess(this.newOrder);
-      this.responseHandling(orderResponse)
+      if (orderResponse.okResponse && orderResponse.order){
+        this.submissionSuccesful=true;
+        this.newOrder=orderResponse.order;
+        // this.createOrderForm.reset()
+      }else{
+        this.submissionSuccesful=false;
+       
+        this.errorMessage=orderResponse.errorMessage || "Something went Wrong"
+      }
     }catch(error:any){
       console.log(error)
     }
    
     
-  }
-
-
-
-  responseHandling(orderResponse:any){
-    if (orderResponse.okResponse && orderResponse.order){
-      this.submissionSuccesful=true;
-      this.newOrder=orderResponse.order;
-      // this.createOrderForm.reset()
-    }else{
-      this.submissionSuccesful=false;
-     
-      this.errorMessage=orderResponse.errorMessage || "Something went Wrong"
-    }
   }
 
 
