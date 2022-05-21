@@ -23,6 +23,7 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
   deliverAddress:FormControl;
   billingAddress:FormControl;
   items: laptopDTO[];
+  orderAmount:number;
   companyName:FormControl;
   createOrderForm:FormGroup;
   isValidForm:boolean | null;
@@ -35,10 +36,16 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
     private orderService:OrdersService
   ) { 
 
+    this.orderAmount=0;
     this.orderDetails=null;
     this.editMode=false;
     this.newOrder= new orderDTO("","",[],"");
-    this.items= []
+    this.items= [ new laptopDTO("Lenovo Yoga Slim 7", 700, 12, "Nvidia", "i3", 519, 1900, 2 ),
+  
+    new laptopDTO("Lenovo IdeaPad 5", 559, 12, "AMD", "i2", 519, 1900, 2 ), 
+    
+    new laptopDTO("Lenovo Thinkbook 15", 559, 12, "AMD", "i2", 519, 1900, 2 )];
+
     this.isValidForm=null;
     this.submissionSuccesful=null;
     this.errorMessage= null;
@@ -56,16 +63,20 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.orderAmount=this.calculateAmount(this.items)
    
   }
 
   ngOnChanges(){
+
+    this.orderAmount=this.calculateAmount(this.items)
     // set value to form during edition mode
     if(this.orderDetails){
       this.editMode=true;
      this.deliverAddress.setValue(this.orderDetails.deliverAddress)
      this.billingAddress.setValue(this.orderDetails.billingAddress)
      this.companyName.setValue(this.orderDetails.companyName)
+     this.items=this.orderDetails.items
  
    
      }else{
@@ -110,14 +121,21 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
 
   }
 
+
+  calculateAmount(items:laptopDTO[]){
+      let orderAmount=0;
+      for (let i = 0; i < items.length; i++) {
+        orderAmount += items[i].priceEUR;
+    
+  }
+  return orderAmount;
+}
+
   // made async function in order to facilitate the transition to a database, test mode does not request async
 async createNewOrder(){
 
 
-    this.newOrder.items= [ new laptopDTO("Lenovo Yoga Slim 7", 700, 12, "Nvidia", "i3", 519, 1900, 2 ), new laptopDTO("Lenovo IdeaPad 5", 559, 12, "AMD", "i2", 519, 1900, 2 ), 
-   
-
-    new laptopDTO("Lenovo Thinkbook 15", 559, 12, "AMD", "i2", 519, 1900, 2 )]
+    this.newOrder.items= this.items;
 
     try{
       let orderResponse= await this.orderService.createTestingOrderSuccess(this.newOrder);

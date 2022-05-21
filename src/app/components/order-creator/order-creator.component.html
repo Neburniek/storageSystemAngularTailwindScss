@@ -45,6 +45,13 @@
             </div>
         </div>
         
+        <div>
+            <label for="items">List of Items Selected:</label>
+             <ul>
+                <li *ngFor="let laptop of items">{{laptop.name}} - {{laptop.priceEUR}}€</li>
+             </ul>
+             <p>total price: {{orderAmount}} €</p>
+        </div>
     
         <button type="submit"> 
             <p *ngIf="!editMode; else editButton">Submit</p>

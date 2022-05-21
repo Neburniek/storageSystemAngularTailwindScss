@@ -9,6 +9,7 @@ import { OrderCreatorComponent } from './components/order-creator/order-creator.
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
