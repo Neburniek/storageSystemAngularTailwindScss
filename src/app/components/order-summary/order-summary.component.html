@@ -1,0 +1,17 @@
+<div>
+    <dl>
+        <dt>Order Number:</dt>
+        <dd>{{order.orderNumber}}</dd>
+        <dt>Deliver Address: </dt>
+        <dd>{{order.deliverAddress}}</dd>
+        <dt>Billing Address:</dt>
+        <dd>{{order.billingAddress}}</dd>
+        <dt>Order Amount:</dt>
+        <dd>{{order.orderAmount}}€</dd>
+        <dt>Items:</dt>
+        <dd *ngFor="let item of order.items">{{item.name}} - {{item.priceEUR}}€</dd>
+        <dt>Company Name:</dt>
+        <dd>{{order.companyName}}</dd>
+
+    </dl>
+</div>

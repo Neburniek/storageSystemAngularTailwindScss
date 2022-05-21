@@ -3,14 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
+
+import { OrderCreatorComponent } from './components/order-creator/order-creator.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    OrderListComponent,
+    OrderCreatorComponent,
+    OrderDetailComponent,
+    OrderSummaryComponent,
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

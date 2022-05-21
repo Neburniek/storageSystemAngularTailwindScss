@@ -1,0 +1,30 @@
+.error{
+    color:red
+}
+.success{
+    color:green
+}
+form {
+    display: grid;
+    div{
+        margin: auto;
+        text-align: center;
+        align-items: center;
+        display: grid;
+        input{
+            border: 1px solid black;
+        }
+        }
+
+        button{
+            margin: 5px auto ;
+            border-radius: 5px;
+            background-color: lightcyan;
+            width: 100px;
+            border: 1px solid black;
+        }
+}
+
+#simpleNotification{
+    text-align: center;
+}

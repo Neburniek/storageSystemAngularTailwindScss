@@ -1,0 +1,36 @@
+<div class="items-center">
+
+    <button (click)="showCreateToggle()" type="button" class=" m-5 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+        <p *ngIf="showCreate;else addButton">Close</p>
+        <ng-template #addButton>
+            <p>Add Order</p>
+        </ng-template>
+     </button>
+    <app-order-creator *ngIf="showCreate"></app-order-creator>
+    <table class="w-5/6 m-auto border border-black text-center">
+        <tr>
+            <th class="bg-red-400" *ngFor="let header of headers">{{header}}</th>
+        </tr>
+    
+    
+    <tr class="border border-black text-center border-dashed" *ngFor="let orderItem of orderList">
+        <td>{{orderItem.orderNumber}}</td>
+        <td>{{orderItem.deliverAddress}}</td>
+        <td>{{orderItem.billingAddress}}</td>
+        <td>{{orderItem.orderAmount}}</td>
+        <td >
+                        <p 
+                        *ngIf="orderItem.items.length <= 1;else variousBlock"
+                        > {{orderItem.items[0].name}}</p>
+                        <ng-template #variousBlock>
+                            <p>Multiple Items</p>
+                        </ng-template>
+        </td>
+        <td>{{orderItem.companyName}}</td>
+    </tr >
+    
+    </table>
+</div>
+
+
+

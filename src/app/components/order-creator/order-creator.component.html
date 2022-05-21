@@ -1,0 +1,54 @@
+<div  >
+    <div id="simpleNotification">
+        <div *ngIf="submissionSuccesful;else failure;" class="success">
+            Form Succesfully Submited
+        </div>
+        <ng-template #failure>
+            <div *ngIf="submissionSuccesful=== false" class="error">
+                Something went wrong
+            </div>
+        </ng-template>
+    </div>
+   
+
+    <form [formGroup]="createOrderForm" (ngSubmit)="createOrder()" *ngIf="!submissionSuccesful;else summary">
+        <div>
+            <label for="deliverAddress">Delivery Address: </label>
+            <input type="text" [formControl]="deliverAddress" required minlength="1" maxlength="50">
+    
+            <div *ngIf="deliverAddress.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">
+                <div *ngIf="deliverAddress.errors?.['required']">>Delivery Address is required</div>
+                <div *ngIf="deliverAddress.errors?.['maxlength']" >>Delivery Address must be maximum 50 characters </div>
+                <div *ngIf="deliverAddress.errors?.['minlength']" >>Delivery Address must be at least 1 characters</div>
+            </div>
+    
+        </div>
+     
+        <div>
+            <label for="billingAddress">Billing Address: </label>
+            <input type="text" required minlength="1" maxlength="50" [formControl]="billingAddress">
+    
+            <div *ngIf="billingAddress.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">
+                <div *ngIf="billingAddress.errors?.['required']">>Billing Address is required</div>
+                <div *ngIf="billingAddress.errors?.['maxlength']" >>Billing Address must be maximum 50 characters </div>
+                <div *ngIf="billingAddress.errors?.['minlength']" >>Billing Address must be at least 1 characters</div>
+            </div>
+        </div>
+     
+        <div >
+            <label for="companyName">Company Name: </label>
+            <input type="text" required minlength="1" maxlength="30" [formControl]="companyName">
+            <div *ngIf="companyName.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">
+                <div *ngIf="companyName.errors?.['required']">>Company Name is required</div>
+                <div *ngIf="companyName.errors?.['maxlength']" >>Company Name must be maximum 30 characters </div>
+                <div *ngIf="companyName.errors?.['minlength']" >>Company Name must be at least 1 characters</div>
+            </div>
+        </div>
+    
+        <button type="submit">Submit</button>
+    </form>
+
+    <ng-template #summary>
+        <app-order-summary [order]="newOrder"></app-order-summary>
+    </ng-template>
+</div>
