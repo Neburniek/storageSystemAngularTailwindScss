@@ -18,8 +18,8 @@ fakeOrder:orderDTO[];
 
 
 // Change in order to test error and sucess messages
-testOrderNumber:number =2;
 okTestResponse:boolean=true;
+testOrderNumber:number =2;
 testErrorMessage:string="Test Error Message";
 
   constructor() { 
@@ -94,7 +94,10 @@ return orderAmount;
 
 
   async deleteTestingOrder(order:orderDTO): Promise<boolean>{
+    if(this.okTestResponse){
     this.fakeOrder.splice(this.fakeOrder.indexOf(order),1);
+
+    }
     return this.okTestResponse;
   }
 
