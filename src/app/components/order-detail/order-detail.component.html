@@ -1,5 +1,6 @@
 <div>
 <hr>
+<div *ngIf="!editionMode">
     <dl>
         <dt>Order Number:</dt>
         <dd>{{orderDetails.orderNumber}}</dd>
@@ -25,9 +26,13 @@
         <dd class="overflow-auto">{{orderDetails.companyName}}</dd>
     </dl>
     <div>
-        <button id="editButton">Edit</button>
+        <button id="editButton" (click)="editOrder()">Edit</button>
         <button id="deleteButton" (click)="deleteOrder()">Delete</button>
     </div>
+</div>
+  <div *ngIf="editionMode">
+      <app-order-creator [orderDetails]="orderDetails" (closeMenu)="closeWindow()"></app-order-creator>
+  </div>
     <hr>
 </div>
 

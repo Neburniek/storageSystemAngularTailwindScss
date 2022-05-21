@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { laptopDTO } from 'src/app/models/laptopDTO';
 import { orderDTO } from 'src/app/models/orderDTO';
@@ -9,15 +9,14 @@ import { OrdersService } from 'src/app/services/orders.service';
   templateUrl: './order-creator.component.html',
   styleUrls: ['./order-creator.component.scss']
 })
-export class OrderCreatorComponent implements OnInit {
-
+export class OrderCreatorComponent implements OnInit, OnChanges {
+  editMode:boolean;
   submissionSuccesful:boolean |null;
   errorMessage: string | null;
   newOrder:orderDTO;
   deliverAddress:FormControl;
   billingAddress:FormControl;
 
-  // orderAmount:FormControl;
   items: laptopDTO[];
   companyName:FormControl;
 
@@ -25,12 +24,15 @@ export class OrderCreatorComponent implements OnInit {
   isValidForm:boolean | null;
 
   @Output() closeMenu: EventEmitter<boolean> = new EventEmitter();
+  @Input() orderDetails: orderDTO | null;
 
   constructor(
     private formBuilder: FormBuilder,
     private orderService:OrdersService
   ) { 
 
+    this.orderDetails=null;
+    this.editMode=false;
     this.newOrder= new orderDTO("","",[],"");
     this.items= []
     this.isValidForm=null;
@@ -50,9 +52,67 @@ export class OrderCreatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   
   }
 
-async createOrder(){
+  ngOnChanges(){
+    if(this.orderDetails){
+      this.editMode=true;
+     this.deliverAddress.setValue(this.orderDetails.deliverAddress)
+     this.billingAddress.setValue(this.orderDetails.billingAddress)
+     this.companyName.setValue(this.orderDetails.companyName)
+ 
+   
+     }else{
+       this.editMode=false;
+       this.createOrderForm.reset()
+     }
+  }
+
+
+  createOrder(){
+    if(this.editMode){
+  this.editOrder()
+    }else{
+      this.createNewOrder()
+    }
+  }
+
+
+  async editOrder(){
+    this.isValidForm=false;
+    if(this.createOrderForm.invalid ){
+     return
+    }
+
+    this.isValidForm=true;
+
+    this.newOrder= this.createOrderForm.value
+
+    try{
+
+      if(this.orderDetails && confirm("Are you sure do you want to modify order " + this.orderDetails.orderNumber + "?")){
+        let orderResponse= await this.orderService.editOrder(this.newOrder, this.orderDetails);
+
+        if(orderResponse.okResponse){
+          alert("Order Succesfully modified")
+        }else{
+          alert(orderResponse.errorMessage ||  "something went wrong")
+        }
+      }else{
+        alert("Something went wrong")
+      }
+
+      this.reset(false)
+
+
+     
+    }catch(error:any){
+      console.log(error)
+    }
+
+  }
+async createNewOrder(){
 
 
     this.isValidForm=false;
@@ -64,6 +124,7 @@ async createOrder(){
     this.newOrder= this.createOrderForm.value;
     this.newOrder.items= [ new laptopDTO("Lenovo Yoga Slim 7", 700, 12, "Nvidia", "i3", 519, 1900, 2 ), new laptopDTO("Lenovo IdeaPad 5", 559, 12, "AMD", "i2", 519, 1900, 2 ), 
    
+
     new laptopDTO("Lenovo Thinkbook 15", 559, 12, "AMD", "i2", 519, 1900, 2 )]
 
     try{

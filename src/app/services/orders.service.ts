@@ -75,7 +75,7 @@ return orderAmount;
 // create testing orders (Just for testing), modifying the okResponse (boolean) you can test different results based on server response
   async createTestingOrderSuccess(order:orderDTO):Promise<orderTestResponse>{
 
-
+      
 
     if(this.okTestResponse){
       this.testOrderNumber++
@@ -96,5 +96,19 @@ return orderAmount;
   async deleteTestingOrder(order:orderDTO): Promise<boolean>{
     this.fakeOrder.splice(this.fakeOrder.indexOf(order),1);
     return this.okTestResponse;
+  }
+
+  async editOrder(newOrder:orderDTO, oldOrder:orderDTO): Promise<orderTestResponse>{
+
+    if(this.okTestResponse){
+     this.fakeOrder[this.fakeOrder.indexOf(oldOrder)].billingAddress=newOrder.billingAddress
+     this.fakeOrder[this.fakeOrder.indexOf(oldOrder)].deliverAddress= newOrder.deliverAddress
+     this.fakeOrder[this.fakeOrder.indexOf(oldOrder)].companyName=newOrder.companyName
+
+       
+      return {okResponse: this.okTestResponse, order:newOrder}
+    }else{
+      return {okResponse:this.okTestResponse, errorMessage: this.testErrorMessage}
+    }
   }
 }

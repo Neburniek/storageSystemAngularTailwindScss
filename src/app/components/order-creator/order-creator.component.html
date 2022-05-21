@@ -45,7 +45,11 @@
             </div>
         </div>
     
-        <button type="submit">Submit</button>
+        <button type="submit"> 
+            <p *ngIf="!editMode; else editButton">Submit</p>
+            <ng-template #editButton> Edit</ng-template>
+        
+        </button>
     </form>
 
     <ng-template #summary>

@@ -9,7 +9,7 @@ import { OrdersService } from 'src/app/services/orders.service';
   styleUrls: ['./order-detail.component.scss']
 })
 export class OrderDetailComponent implements OnInit {
-
+editionMode:boolean;
   @Input() orderDetails: orderDTO;
   @Output() closeMe:EventEmitter<boolean>= new EventEmitter()
   constructor(
@@ -17,13 +17,14 @@ export class OrderDetailComponent implements OnInit {
   ) {
 
     this.orderDetails= new orderDTO("","",[new laptopDTO("",0,0,"","",0,0,0)],"");
+    this.editionMode=false;
    }
 
   ngOnInit(): void {
   }
 
   editOrder(){
-
+this.editionMode=!this.editionMode;
   }
   async deleteOrder(){
    if(confirm("Are you sure you want to delete the order number " + this.orderDetails.orderNumber )){
@@ -33,13 +34,19 @@ export class OrderDetailComponent implements OnInit {
         alert("The order number " + this.orderDetails.orderNumber + " has been succesfully deleted");
       }else{
         alert("Unable to delete " + this.orderDetails.orderNumber)
+
       }
-      this.closeMe.emit(true)
+      this.closeWindow()
      }catch(error:any){
        console.log(error)
      }
 
    }
+  }
+
+  closeWindow(){
+    this.closeMe.emit(true)
+
   }
 
 }

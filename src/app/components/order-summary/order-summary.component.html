@@ -9,7 +9,18 @@
         <dt>Order Amount:</dt>
         <dd>{{order.orderAmount}}€</dd>
         <dt>Items:</dt>
-        <dd *ngFor="let item of order.items">{{item.name}} - {{item.priceEUR}}€</dd>
+        <dd *ngFor="let item of order.items">
+            
+            <p><b>{{item.name}} - {{item.priceEUR}}€</b></p>
+        <ul>
+            <li>Ram: {{item.ramGB}} Gb</li>
+            <li>Graphic Card: {{item.graphicCard}}</li>
+            <li>Processor: {{item.processor}}</li>
+            <li>Storage: {{item.storageGB}} Gb</li>
+            <li>ScreenWidth: {{item.screenWidth}}cm</li>
+            <li>Weight: {{item.weightKg}} Kg</li>
+        </ul>
+    </dd>
         <dt>Company Name:</dt>
         <dd class="overflow-auto">{{order.companyName}}</dd>
 
