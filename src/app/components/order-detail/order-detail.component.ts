@@ -9,7 +9,8 @@ import { OrdersService } from 'src/app/services/orders.service';
   styleUrls: ['./order-detail.component.scss']
 })
 export class OrderDetailComponent implements OnInit {
-editionMode:boolean;
+
+  editionMode:boolean;
   @Input() orderDetails: orderDTO;
   @Output() closeMe:EventEmitter<boolean>= new EventEmitter()
   constructor(
@@ -26,6 +27,7 @@ editionMode:boolean;
   editOrder(){
 this.editionMode=!this.editionMode;
   }
+
   async deleteOrder(){
    if(confirm("Are you sure you want to delete the order number " + this.orderDetails.orderNumber )){
      try{

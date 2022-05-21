@@ -1,0 +1,5 @@
+This is a serverless app. The focus of the app has been Angular, Typescript as well as showing some skills with tailwind and scss.
+The app allows the user to save, edit and delete orders. Once the order is saved, a confirmation notification is displayed with the order details.
+In the list, partial information is visible but when clicking on each element a side window is displayed with further information and the option of delete or edit the element.
+
+In order to further test the application, there is a error testing system on the order.service.ts file. When changing okTestResponse to false, the app will stop working and the tailor made errors will be shown instead. Please keep in mind that once set to false the application will not work until you will manually set it to true again.

@@ -10,16 +10,20 @@ import { OrdersService } from 'src/app/services/orders.service';
   styleUrls: ['./order-creator.component.scss']
 })
 export class OrderCreatorComponent implements OnInit, OnChanges {
+
+  // edition mode
   editMode:boolean;
+
+  // notification message
   submissionSuccesful:boolean |null;
   errorMessage: string | null;
+
+  // form
   newOrder:orderDTO;
   deliverAddress:FormControl;
   billingAddress:FormControl;
-
   items: laptopDTO[];
   companyName:FormControl;
-
   createOrderForm:FormGroup;
   isValidForm:boolean | null;
 
@@ -56,6 +60,7 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(){
+    // set value to form during edition mode
     if(this.orderDetails){
       this.editMode=true;
      this.deliverAddress.setValue(this.orderDetails.deliverAddress)
@@ -78,6 +83,7 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
     }
   }
 
+  // made async function in order to facilitate the transition to a database, test mode does not request async
 
   async editOrder(){
     this.isValidForm=false;
@@ -112,6 +118,8 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
     }
 
   }
+
+  // made async function in order to facilitate the transition to a database, test mode does not request async
 async createNewOrder(){
 
 
@@ -145,6 +153,8 @@ async createNewOrder(){
     
   }
 
+
+//  reset form and if requested, hide the form
   reset(event:any){
   if(event){
  
