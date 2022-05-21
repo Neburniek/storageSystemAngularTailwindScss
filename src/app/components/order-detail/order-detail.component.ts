@@ -28,10 +28,11 @@ export class OrderDetailComponent implements OnInit {
 this.editionMode=!this.editionMode;
   }
 
-  async deleteOrder(){
+
+ deleteOrder(){
    if(confirm("Are you sure you want to delete the order number " + this.orderDetails.orderNumber )){
      try{
-      let response = await this.orderService.deleteTestingOrder(this.orderDetails)
+      let response = this.orderService.deleteTestingOrder(this.orderDetails)
       if(response){
         alert("The order number " + this.orderDetails.orderNumber + " has been succesfully deleted");
       }else{

@@ -34,9 +34,9 @@ export class OrderListComponent implements OnInit {
   }
 
   
-async loadOrders(){
+ loadOrders(){
   try{
-    this.orderList= await this.orderService.getTestingOrders()
+    this.orderList= this.orderService.getTestingOrders()
   }catch(error:any){
     console.log(error)
   }

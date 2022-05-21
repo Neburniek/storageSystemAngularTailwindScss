@@ -68,12 +68,12 @@ return orderAmount;
 }
 
 // get testing orders (Just for testing)
- async  getTestingOrders():Promise<orderDTO[]>{
+  getTestingOrders(): orderDTO[]{
       return  this.fakeOrder
   }
 
 // create testing orders (Just for testing), modifying the okResponse (boolean) you can test different results based on server response
-  async createTestingOrderSuccess(order:orderDTO):Promise<orderTestResponse>{
+  createTestingOrderSuccess(order:orderDTO):orderTestResponse{
 
       
 
@@ -93,7 +93,7 @@ return orderAmount;
   }
 
 
-  async deleteTestingOrder(order:orderDTO): Promise<boolean>{
+  deleteTestingOrder(order:orderDTO):boolean{
     if(this.okTestResponse){
     this.fakeOrder.splice(this.fakeOrder.indexOf(order),1);
 
@@ -101,7 +101,7 @@ return orderAmount;
     return this.okTestResponse;
   }
 
-  async editOrder(newOrder:orderDTO, oldOrder:orderDTO): Promise<orderTestResponse>{
+editOrder(newOrder:orderDTO, oldOrder:orderDTO): orderTestResponse{
 
     if(this.okTestResponse){
      this.fakeOrder[this.fakeOrder.indexOf(oldOrder)].billingAddress=newOrder.billingAddress

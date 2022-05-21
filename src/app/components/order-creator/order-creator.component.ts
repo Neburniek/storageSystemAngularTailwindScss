@@ -93,14 +93,14 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
     this.checkValidity()
   }
 
-  // made async function in order to facilitate the transition to a database, test mode does not request async
 
-  async editOrder(){
+
+ editOrder(){
 
     try{
 
       if(this.orderDetails && confirm("Are you sure do you want to modify order " + this.orderDetails.orderNumber + "?")){
-        let orderResponse= await this.orderService.editOrder(this.newOrder, this.orderDetails);
+        let orderResponse= this.orderService.editOrder(this.newOrder, this.orderDetails);
 
         if(orderResponse.okResponse){
           alert("Order Succesfully modified")
@@ -131,14 +131,14 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
   return orderAmount;
 }
 
-  // made async function in order to facilitate the transition to a database, test mode does not request async
-async createNewOrder(){
+  
+ createNewOrder(){
 
 
     this.newOrder.items= this.items;
 
     try{
-      let orderResponse= await this.orderService.createTestingOrderSuccess(this.newOrder);
+      let orderResponse= this.orderService.createTestingOrderSuccess(this.newOrder);
       if (orderResponse.okResponse && orderResponse.order){
         this.submissionSuccesful=true;
         this.newOrder=orderResponse.order;
