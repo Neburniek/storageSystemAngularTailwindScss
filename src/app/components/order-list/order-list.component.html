@@ -6,18 +6,18 @@
             <p>Add Order</p>
         </ng-template>
      </button>
-    <app-order-creator *ngIf="showCreate"></app-order-creator>
-    <table class="w-5/6 m-auto border border-black text-center">
+    <app-order-creator *ngIf="showCreate" (closeMenu)="showCreateToggle()"></app-order-creator>
+    <table class="w-5/6 m-auto border border-black text-center table-fixed ">
         <tr>
-            <th class="bg-red-400" *ngFor="let header of headers">{{header}}</th>
+            <th class="bg-red-400 overflow-scroll" *ngFor="let header of headers">{{header}}</th>
         </tr>
     
     
     <tr class="border border-black text-center border-dashed" *ngFor="let orderItem of orderList">
-        <td>{{orderItem.orderNumber}}</td>
-        <td>{{orderItem.deliverAddress}}</td>
-        <td>{{orderItem.billingAddress}}</td>
-        <td>{{orderItem.orderAmount}}</td>
+        <td class="overflow-scroll">{{orderItem.orderNumber}}</td>
+        <td class="overflow-scroll" >{{orderItem.deliverAddress}}</td>
+        <td  class="overflow-scroll">{{orderItem.billingAddress}}</td>
+        <td  class="overflow-scroll" >{{orderItem.orderAmount}}</td>
         <td >
                         <p 
                         *ngIf="orderItem.items.length <= 1;else variousBlock"
@@ -26,7 +26,7 @@
                             <p>Multiple Items</p>
                         </ng-template>
         </td>
-        <td>{{orderItem.companyName}}</td>
+        <td class="overflow-scroll">{{orderItem.companyName}}</td>
     </tr >
     
     </table>

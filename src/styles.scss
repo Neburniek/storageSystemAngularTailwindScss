@@ -1,3 +1,15 @@
+
+
 @tailwind base;
 @tailwind components;
+
+@import "./assets/variables";
+
 @tailwind utilities;
+
+.error{
+color:$color-error
+}
+.success{
+    color:$color-success
+}

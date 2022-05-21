@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,  EventEmitter } from '@angular/core';
 import { laptopDTO } from 'src/app/models/laptopDTO';
 import { orderDTO } from 'src/app/models/orderDTO';
+
 
 @Component({
   selector: 'app-order-summary',
@@ -10,12 +11,19 @@ import { orderDTO } from 'src/app/models/orderDTO';
 export class OrderSummaryComponent implements OnInit {
 
   @Input() order:orderDTO;
+  @Output() closeMenu: EventEmitter<boolean>= new EventEmitter();
+
 
   constructor() {
     this.order=new orderDTO("","",[new laptopDTO("",0,0,"","",0,0,0)],"")
    }
 
   ngOnInit(): void {
+  }
+
+  resetMe(action:boolean){
+    this.closeMenu.emit(action)
+    
   }
 
 }

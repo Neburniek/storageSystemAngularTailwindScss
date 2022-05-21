@@ -5,7 +5,7 @@
         </div>
         <ng-template #failure>
             <div *ngIf="submissionSuccesful=== false" class="error">
-                Something went wrong
+                {{errorMessage}}
             </div>
         </ng-template>
     </div>
@@ -49,6 +49,8 @@
     </form>
 
     <ng-template #summary>
-        <app-order-summary [order]="newOrder"></app-order-summary>
+        <app-order-summary [order]="newOrder" (closeMenu)="reset($event)"></app-order-summary>
     </ng-template>
+
+ 
 </div>

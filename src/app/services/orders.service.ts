@@ -2,16 +2,23 @@ import { Injectable } from '@angular/core';
 import { laptopDTO } from '../models/laptopDTO';
 import { orderDTO } from '../models/orderDTO';
 
-interface orderResponse{
+interface orderTestResponse{
   okResponse:boolean,
-  order:orderDTO
+  order?:orderDTO
+  errorMessage?:string
 }
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
 fakeOrder:orderDTO[];
+
+// Change in order to test error and sucess messages
+okTestResponse:boolean=true;
+testErrorMessage:string="Test Error Message";
+
   constructor() { 
 
     
@@ -63,19 +70,20 @@ return orderAmount;
   }
 
 // create testing orders (Just for testing), modifying the okResponse (boolean) you can test different results based on server response
-  createTestingOrderSuccess(order:orderDTO):orderResponse{
+  createTestingOrderSuccess(order:orderDTO):orderTestResponse{
 
-    let okResponse: boolean;
 
-    okResponse = true;
 
-    if(okResponse){
+    if(this.okTestResponse){
       order.orderNumber= this.fakeOrder.length;
       order.orderAmount=this.calculateAmount(order);
       this.fakeOrder.push(order)
+      return  {okResponse:this.okTestResponse,order:order}
+    }else{
+      return   {okResponse:this.okTestResponse,errorMessage:this.testErrorMessage}
+
     }
 
-    let orderResponse:orderResponse= {okResponse:okResponse,order:order}
-    return orderResponse
+   
   }
 }

@@ -2,16 +2,18 @@
     <dl>
         <dt>Order Number:</dt>
         <dd>{{order.orderNumber}}</dd>
-        <dt>Deliver Address: </dt>
-        <dd>{{order.deliverAddress}}</dd>
+        <dt >Deliver Address: </dt>
+        <dd class="overflow-scroll">{{order.deliverAddress}}</dd>
         <dt>Billing Address:</dt>
-        <dd>{{order.billingAddress}}</dd>
+        <dd class="overflow-scroll">{{order.billingAddress}}</dd>
         <dt>Order Amount:</dt>
         <dd>{{order.orderAmount}}€</dd>
         <dt>Items:</dt>
         <dd *ngFor="let item of order.items">{{item.name}} - {{item.priceEUR}}€</dd>
         <dt>Company Name:</dt>
-        <dd>{{order.companyName}}</dd>
+        <dd class="overflow-scroll">{{order.companyName}}</dd>
 
     </dl>
+
+    <div><button (click)="resetMe(false)" >Close</button> <button class="reset" (click)="resetMe(true)">Add another Order</button></div>
 </div>
