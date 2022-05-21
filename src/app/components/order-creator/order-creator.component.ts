@@ -76,24 +76,15 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
 
 
   createOrder(){
-    if(this.editMode){
-  this.editOrder()
-    }else{
-      this.createNewOrder()
-    }
+
+
+  
+    this.checkValidity()
   }
 
   // made async function in order to facilitate the transition to a database, test mode does not request async
 
   async editOrder(){
-    this.isValidForm=false;
-    if(this.createOrderForm.invalid ){
-     return
-    }
-
-    this.isValidForm=true;
-
-    this.newOrder= this.createOrderForm.value
 
     try{
 
@@ -123,13 +114,6 @@ export class OrderCreatorComponent implements OnInit, OnChanges {
 async createNewOrder(){
 
 
-    this.isValidForm=false;
-    if(this.createOrderForm.invalid){
-     return
-    }
-
-    this.isValidForm=true;
-    this.newOrder= this.createOrderForm.value;
     this.newOrder.items= [ new laptopDTO("Lenovo Yoga Slim 7", 700, 12, "Nvidia", "i3", 519, 1900, 2 ), new laptopDTO("Lenovo IdeaPad 5", 559, 12, "AMD", "i2", 519, 1900, 2 ), 
    
 
@@ -153,6 +137,22 @@ async createNewOrder(){
     
   }
 
+  checkValidity(){
+    this.isValidForm=false;
+    if(this.createOrderForm.invalid ){
+     return
+    }
+
+    this.isValidForm=true;
+
+    this.newOrder= this.createOrderForm.value
+
+    if(this.editMode){
+      this.editOrder()
+    }else{
+      this.createNewOrder()
+    }
+  }
 
 //  reset form and if requested, hide the form
   reset(event:any){
